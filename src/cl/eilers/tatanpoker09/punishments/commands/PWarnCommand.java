@@ -16,6 +16,7 @@ public class PWarnCommand implements CommandExecutor{
 			String[] args) {
 		if(args.length==2){
 			if(Bukkit.matchPlayer(args[0]).get(0)!=null){
+				System.out.println("hi");
 				Main.getPunishments().add(new Warn(Bukkit.matchPlayer(args[0]).get(0), args[1]));
 				return true;
 			} else {

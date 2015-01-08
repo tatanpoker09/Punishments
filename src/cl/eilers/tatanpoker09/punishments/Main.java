@@ -56,10 +56,7 @@ public class Main extends JavaPlugin implements Listener{
 		return punishments;
 	}
 	public static void addPunishments(Punishment punishments) {
-		System.out.println(Main.getPunishments().size());
-		System.out.println("ADDING PUNISHMENT");
 		Main.punishments.add(punishments);
-		System.out.println(Main.getPunishments().size());
 	}
 	public static JavaPlugin getPlugin() {
 		return plugin;
