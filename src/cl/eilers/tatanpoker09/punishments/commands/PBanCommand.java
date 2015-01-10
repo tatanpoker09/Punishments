@@ -10,28 +10,26 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import cl.eilers.tatanpoker09.punishments.TatanUtils;
-import cl.eilers.tatanpoker09.punishments.punishments.Warn;
+import cl.eilers.tatanpoker09.punishments.punishments.Ban;
 
-public class PWarnCommand implements CommandExecutor{
-
+public class PBanCommand implements CommandExecutor{
 	@SuppressWarnings("deprecation")
-	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label,
-			String[] args) {
-		if(args.length==2){
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
+		if(args.length>3){
 			if(Bukkit.getOfflinePlayer(args[0])!=null){
-				if(Bukkit.getOfflinePlayer(args[0]).isOnline()){
-					Bukkit.getOfflinePlayer(args[0]).getPlayer().sendMessage(ChatColor.DARK_RED+"Has sido warneado.");
+				int time = Integer.parseInt(args[1]);
+				if(time==0){
+					time = 1000;
 				}
-				String reason = TatanUtils.concatenateArgs(args, 1);
+				String reason = TatanUtils.concatenateArgs(args, 2);
 				InetSocketAddress ip = null;
 				if(Bukkit.getOfflinePlayer(args[0]).getPlayer()!=null){
 					ip = Bukkit.getOfflinePlayer(args[0]).getPlayer().getAddress();
 				}
 				if(ip!=null){
-					new Warn(Bukkit.getOfflinePlayer(args[0]), reason, Calendar.getInstance(), ip.getAddress().toString()).add();
+				new Ban(Bukkit.getOfflinePlayer(args[0]), reason, Calendar.getInstance(), time, ip.getAddress().toString()).add();
 				} else {
-					new Warn(Bukkit.getOfflinePlayer(args[0]), reason, Calendar.getInstance()).add();
+					new Ban(Bukkit.getOfflinePlayer(args[0]), reason, Calendar.getInstance(), time);
 				}
 				return true;
 			} else {
@@ -39,7 +37,7 @@ public class PWarnCommand implements CommandExecutor{
 				return false;
 			}
 		} else {
-			sender.sendMessage(ChatColor.DARK_RED+"[Punishments] "+ChatColor.RED+"Debes especificar jugador y razón.");
+			sender.sendMessage(ChatColor.DARK_RED+"[Punishments] "+ChatColor.RED+"Debes especificar jugador, tiempo(en días) y razón.");
 			return false;
 		}
 	}

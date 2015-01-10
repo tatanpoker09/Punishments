@@ -3,6 +3,9 @@ description: Punishment plugin.
 version: 0.2
 main: cl.eilers.tatanpoker09.punishments.Main
 commands:
-  debugp:
   pkick:
   pwarn:
+  pban:
+  pget:
+  pmute:
+  premove:
